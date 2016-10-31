@@ -1,5 +1,6 @@
 struct hashtable{
 	struct list * lista;
+
 };
 
 
