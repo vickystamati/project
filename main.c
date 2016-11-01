@@ -58,9 +58,7 @@ int main(int argc, char *argv[])
 	FILE* fpw;
 	struct hashtable ** hasht;
 	struct distlist * dilist;
-	char baflen[bafSize];
 	char * tok;
-	char newfilename[30];
 	int readcount=0,columns=0;
 	int idcounter;
 	long * matrid;
@@ -78,11 +76,9 @@ int main(int argc, char *argv[])
 	int fsum;
 	long modnum=1,itemcounter=0,idfind;
 	int length,counter=0;
-	char bufinteger[bufSize],buflen[bufSize],buf[bufSize],bufint[bufSize];
+	char bufinteger[bufSize],buflen[bufSize],buf[bufSize],bufint[bufSize],baflen[bafSize], newfilename[30];;
 	char *token;	
-	char *dfile;
-	char *qfile;
-	char *ofile;
+	char *dfile,*qfile,*ofile; 
 	int k=4;//megethos hastable 2^k 
 	int L=5;//arithmos hashtable
 	long hashsize=2;
@@ -97,28 +93,28 @@ int main(int argc, char *argv[])
 	srand(time(NULL));
 
 
-	if(argc==11)
+	if(argc==11)//an ta orismata einai 11
 	{
-		if(strcmp(argv[1],"-d")==0)
+		if(strcmp(argv[1],"-d")==0)//prwto -d
 		{
 			dfile=(argv[2]);
-			if ((fp = fopen((dfile), "r")) != NULL)
+			if ((fp = fopen((dfile), "r")) != NULL)//elegxos an to arxeio den einai NULL
 			{
 				fscanf(fp, "%s", buflen);
 				fscanf(fp, "%s", buflen);
-				if((strcmp(buflen,"vector")==0) || strcmp(buflen,"euclidean")==0)
+				if((strcmp(buflen,"vector")==0) || strcmp(buflen,"euclidean")==0)//elegxos diavase vector h' euclidean
 				{
 					fscanf(fp, "%s", buflen);
 					fscanf(fp, "%s", buflen);
-					if((strcmp(buflen,"cosine")==0))
+					if((strcmp(buflen,"cosine")==0))//elegxos an diavase cosine alliws euclidean by default
 						check=1;
 					else
-						check=2;
+						check=1;
 					
 				}
-				else if(strcmp(buflen,"hamming")==0)
+				else if(strcmp(buflen,"hamming")==0)//elegxos an diavase hamming
 					check=0;
-				else if(strcmp(buflen,"matrix")==0)
+				else if(strcmp(buflen,"matrix")==0)//elegxos an diavase matrix
 					check=3;
 				else
 				{
@@ -135,9 +131,9 @@ int main(int argc, char *argv[])
 			printf("Wrong argument!\n");
 			return 0;
 		}
-		if(strcmp(argv[3],"-q")==0)
+		if(strcmp(argv[3],"-q")==0)//elegxos an diavase -q ws 4o orisma
 		{
-			qfile=argv[4];
+			qfile=argv[4];// to q file deixnei sto argv[4] pou periexei to onoma tou arxeio me to query
 		}
 		else
 		{
@@ -146,7 +142,7 @@ int main(int argc, char *argv[])
 		}
 		if(strcmp(argv[5],"-k")==0)
 		{
-			k=atoi(argv[6]);
+			k=atoi(argv[6]);//dinei to k
 		}
 		else
 		{
@@ -155,7 +151,7 @@ int main(int argc, char *argv[])
 		}
 		if(strcmp(argv[7],"-L")==0)
 		{
-			L=atoi(argv[8]);
+			L=atoi(argv[8]);//dinei to L
 		}
 		else
 		{
@@ -164,7 +160,7 @@ int main(int argc, char *argv[])
 		}
 		if(strcmp(argv[9],"-o")==0)
 		{
-			ofile=argv[10];
+			ofile=argv[10];//onoma tou txt gia to output
 			fpw=fopen(ofile, "w");
 		}
 		else
@@ -322,12 +318,12 @@ int main(int argc, char *argv[])
 			printf("Empty file!\n");
 			return 0;
 		}
-		while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
+		while (fscanf(fp, "%s", buflen) != EOF)//metraei ta psifia tou kathe item
 		{
 			token=buflen; 
 			if(token[0]=='0' || token[0]=='1')
 			{
-				length=strlen(token);
+				length=strlen(token);//pernaei sto length ton arithmo ton psifion 
 				break;
 			}
 		}
@@ -337,7 +333,7 @@ int main(int argc, char *argv[])
 			printf("Empty file!\n");
 			return 0;
 		}
-		while (fscanf(fp, "%s", buflen) != EOF)
+		while (fscanf(fp, "%s", buflen) != EOF)//metraei ton arithmo ton items
 		{
 			token=buflen; 
 			if(token[0]=='i' && token[1]=='t'&& token[2]=='e'&& token[3]=='m')
@@ -346,7 +342,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		fclose(fp);
-		if(k>log(readcount))
+		if(k>log(readcount))//elegxos gia to k
 		{
 			printf("Wrong k value! GOODBYE!\n");
 			return 0;
@@ -358,12 +354,12 @@ int main(int argc, char *argv[])
 			for(j=0;j<k;j++)
 			{
 				random=1+ (rand() /( RAND_MAX + 1.0))*(length-1);
-				gfun[i][j]=random;
+				gfun[i][j]=random;//epilogi,mesw kanonikis tuxaiotitas, arithmwn poy antistixoun sta ID twn h
 			}
 		}
 		
 		hasht = malloc(L * sizeof(struct hashtable*));
-		createhash(hasht,L,hashsize);
+		createhash(hasht,L,hashsize);//dimiourgia hashtable
 		if ((fp = fopen((dfile), "r")) == NULL)
 		{
 			printf("Empty file!\n");
@@ -377,15 +373,15 @@ int main(int argc, char *argv[])
 				z=0;
 				while(i<strlen(buf))
 				{
-					if(buf[i]>='0' && buf[i]<='9')
+					if(buf[i]>='0' && buf[i]<='9')//elegxei na einai arithmos
 					{
-						bufinteger[z]=buf[i];
+						bufinteger[z]=buf[i];//to dinei ws id
 						z++;
 					}
 					i++;
 				}
-				itemid=strtol(bufinteger,&pitemid,10);//vazw sto itemid long tous to id tou item(krataw mono tous arithmous ap to string
-				number=strtoull(buflen,&token,2);//vazw sto number to long long tis akolouthias 0,1
+				itemid=strtol(bufinteger,&pitemid,10);//kratame mono tous arithmous ap to string
+				number=strtoull(buflen,&token,2);//vazoume sto number to long long tis akolouthias 0,1
 				j=0;
 				while(j<L)
 				{
@@ -394,7 +390,7 @@ int main(int argc, char *argv[])
 						token3[i]=buflen[gfun[j][i]];
 					}
 					binarynum=atoll(token3);//pairnei tin duadiki simvoloseira kai tin kanei typo long long int
-					decimalnum=turnintodecimal(binarynum);//meta trepei to diadiko se dekadiko wste na paei sto swsto bucket
+					decimalnum=turnintodecimal(binarynum);//metatrepei to diadiko se dekadiko wste na paei sto swsto bucket
 					insert(hasht[j][decimalnum].lista,number,itemid);
 					j++;
 				}
@@ -413,7 +409,7 @@ int main(int argc, char *argv[])
 			}
 			fscanf(fp, "%s", buflen);
 			fscanf(fp, "%s", buflen);
-			radius=strtol(buflen,&pitemid,10);
+			radius=strtol(buflen,&pitemid,10);//diavazei tin aktina
 			while (fscanf(fp, "%s %s", buf,buflen) != EOF)
 			{
 				beginlsh=clock();
@@ -441,13 +437,14 @@ int main(int argc, char *argv[])
 					}
 					binarynum=atoll(token4);
 					decimalnum=turnintodecimal(binarynum);
-					search(hasht[j][decimalnum].lista,number,itemid,dilist,length,0,L);//an exei radius 0 vriskei ta geitonika mono
+					search(hasht[j][decimalnum].lista,number,itemid,dilist,length,radius,L);//lsh search
 					j++;
 				}	
 				endlsh=clock();
 				time_spentlsh=(double)(endlsh - beginlsh) / CLOCKS_PER_SEC;
-				time_spentlsh+=time_spent;
-				printdistancelist(dilist,length,fpw);
+				time_spentlsh+=time_spent;//ipologismos xronou lsh
+				if(radius!=0)
+					printdistancelist(dilist,length,fpw);//ektipwnei oli ti lista me tous geitonikous an radius!=0
 				findmin(dilist,0,fpw);
 				free(dilist);
 				freedlist(dilist);
@@ -456,11 +453,11 @@ int main(int argc, char *argv[])
 				dilist->head=NULL;
 				for(j=0;j<hashsize;j++)
 				{
-					search(hasht[0][j].lista,number,itemid,dilist,length,radius,L);//L=-1 wste na min stamatisei i while sto search
+					search(hasht[0][j].lista,number,itemid,dilist,length,0,-1);//L=-1 gia na min stamatisei i while sto search|brute force
 				}
 				endbr=clock();
 				time_spentbr=(double)(endbr - beginbr) / CLOCKS_PER_SEC;
-				time_spentbr+=time_spent;
+				time_spentbr+=time_spent;//ipologismos xronou brute force
 				findmin(dilist,1,fpw);
 				freedlist(dilist);
 				free(dilist);
@@ -472,14 +469,14 @@ int main(int argc, char *argv[])
 			memset(newfilename,0,sizeof(newfilename));
 			memset(buflen,0,sizeof(buflen));
 			memset(bufint,0,sizeof(bufint));
-			scanf("%s",newfilename);
+			scanf("%s",newfilename);//diavazei to neo arxeio me ta query
 			qfile=newfilename;
 		}while((strcmp(qfile,"END")!=0));
 		freegf(gfun,L);
 		free(gfun);
 		freehasht(hasht,L,hashsize);
 		free(hasht);
-		
+		//adeiazei ti mnimi pou desmeutike dinamika
 	}
 //Cosine
 	else if(check==1)
@@ -495,7 +492,7 @@ int main(int argc, char *argv[])
 		}
 		i=0;
 		counter=0;
-		while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
+		while (fscanf(fp, "%s", buflen) != EOF)//vazei sto counter ta stoixeia tou kathe item
 		{
 			if(buflen[0]=='i' && buflen[1]=='t' && buflen[2]=='e' && buflen[3]=='m')
 			{
@@ -518,13 +515,13 @@ int main(int argc, char *argv[])
 			for(j=0;j<counter;j++)
 			{
 				ran=2;
-				while(ran>=1)
+				while(ran>=1)//ftiaxnw y1<1 kai y2<1, kai ftiaxnw to rand<1 (typos marsaglia)
 				{
 					y1=-1+(rand()/(RAND_MAX +1.0))*(1+1);	
 					y2=-1+(rand()/(RAND_MAX +1.0))*(1+1);	
 					ran=(y1*y1) + (y2*y2);	
 				}
-				hfix[i][j]=sqrt((-2*log10(ran))/(ran)) * y1;
+				hfix[i][j]=sqrt((-2*log10(ran))/(ran)) * y1;//ftiaxno ta h
 			}
 		}
 		gfun=malloc(L*sizeof(int*));	
@@ -535,11 +532,10 @@ int main(int argc, char *argv[])
 			{
 				random=1+ (rand() /( RAND_MAX + 1.0))*(L*k-1);
 				gfun[i][j]=random;
-				//printf("%d\n",random);
 			}
 		
 		}
-		htable=malloc(L *sizeof(double**));
+		htable=malloc(L *sizeof(double**));//triplo asteraki,ftiaxnei tin teliki morfi tis g(me ta h pou perixei gia kathe hashtable)
 		for(i=0;i<L;i++)
 		{
 			htable[i]=malloc(k*sizeof(double*));
@@ -561,11 +557,11 @@ int main(int argc, char *argv[])
 			printf("Empty file!\n");
 			return 0;
 		}
-		while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
+		while (fscanf(fp, "%s", buflen) != EOF)//diavazei to arxeio
 		{
-			if(buflen[0]=='i' && buflen[1]=='t' && buflen[2]=='e' && buflen[3]=='m')
+			if(buflen[0]=='i' && buflen[1]=='t' && buflen[2]=='e' && buflen[3]=='m')//diavazei to kathe item
 			{
-				vector=malloc(counter*sizeof(double));
+				vector=malloc(counter*sizeof(double));//pinakas me ta stoixeia tou kathe item
 				i=0;
 				z=0;
 				while(i<strlen(buflen))
@@ -600,7 +596,7 @@ int main(int argc, char *argv[])
 					}
 					binarynum=atoll(token3);
 					decimalnum=turnintodecimal(binarynum);//thesi sto hastable pou tha mpei
-					insertcosine(hasht[i][decimalnum].lista,vector,itemid,counter);
+					insertcosine(hasht[i][decimalnum].lista,vector,itemid,counter);//insert stin cosine
 				}
 				free(vector);
 			}
@@ -618,7 +614,7 @@ int main(int argc, char *argv[])
 			fscanf(fp, "%s", buflen);
 			radius=strtol(buflen,&pitemid,10);
 
-			while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
+			while (fscanf(fp, "%s", buflen) != EOF)//diavazei to query arxeio
 			{
 				beginlsh=clock();
 				i=0;
@@ -657,29 +653,30 @@ int main(int argc, char *argv[])
 							token4[j]='0';
 						sum=0;
 					}
-					binarynum=atoll(token4);
+					binarynum=atoll(token4);//kanei long to diadiko
 					decimalnum=turnintodecimal(binarynum);//thesi sto hastable pou tha mpei
-					if(hasht[i][decimalnum].lista->head!=NULL) 
-						searchcosine(hasht[i][decimalnum].lista,vector,itemid,dilist,counter,radius,L);
+					if(hasht[i][decimalnum].lista->head!=NULL) //kanei search an to bucket poy tha mpei den einai null
+						searchcosine(hasht[i][decimalnum].lista,vector,itemid,dilist,counter,radius,L);//search lsh
 				}
 				endlsh=clock();
 				time_spentlsh=(double)(endlsh - beginlsh) / CLOCKS_PER_SEC;
-				time_spentlsh+=time_spent;
+				time_spentlsh+=time_spent;//xronos lsh
 				fprintf(fpw,"Query: item%lu\n",itemid);
-				printdistancelistcosine(dilist,fpw);
+				if(radius!=0)
+					printdistancelistcosine(dilist,fpw);
 				findmin(dilist,0,fpw);
-				freedlist(dilist);
+				freedlist(dilist);//apodesmevei ti lista me tis apostaseis wste na ksanaxrisimopoiithei
 				free(dilist);
 				beginbr=clock();
 				dilist =malloc(sizeof(struct distlist));//lista me apostaseis
 				dilist->head=NULL;
 				for(j=0;j<hashsize;j++)
 				{
-					searchcosine(hasht[0][j].lista,vector,itemid,dilist,counter,0,-1);//L=-1 wste na min stamatisei i while sto search
+					searchcosine(hasht[0][j].lista,vector,itemid,dilist,counter,0,-1);//L=-1 gia na mi stamatisei i while sto search|brute
 				}
 				endbr=clock();	
 				time_spentbr=(double)(endbr - beginbr) / CLOCKS_PER_SEC;
-				time_spentbr+=time_spent;
+				time_spentbr+=time_spent;//xronos brute
 				findmin(dilist,1,fpw);		
 				freedlist(dilist);
 				free(dilist);
@@ -704,7 +701,7 @@ int main(int argc, char *argv[])
 		freehtable(htable,L,k);
 		free(htable);
 		freehasht(hasht,L,hashsize);
-		free(hasht);
+		free(hasht);//adeiazei ti mnimi pou desmeytike me malloc
 	
 	}
 	//EUCLIDEAN
@@ -712,14 +709,14 @@ int main(int argc, char *argv[])
 	{	
 		fprintf(fpw,"Euclidean\n");
 		begin=clock();
-		if(k>10 && L>30)
+		if(k>10 && L>30)//elegxos gia k kai L
 		{
 			printf("Wrong values for k,L! GOODBYE!\n");
 			return 0;
 		}
 		for(i=0;i<32;i++)
 			modnum*=2;
-		modnum=modnum-5;
+		modnum=modnum-5;//kataskeui M = (2^32)-5
 		if ((fp = fopen((dfile), "r")) == NULL)
 		{
 			printf("Empty file!\n");
@@ -727,8 +724,7 @@ int main(int argc, char *argv[])
 		}
 		i=0;
 		counter=0;
-		while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
-		{
+		while (fscanf(fp, "%s", buflen) != EOF)		{
 			if(buflen[0]=='i' && buflen[1]=='t' && buflen[2]=='e' && buflen[3]=='m')
 			{
 				if(i==1)
@@ -776,8 +772,7 @@ int main(int argc, char *argv[])
 		}
 		for(i=0;i<k*L;i++)
 		{
-			tfix[i]=(rand() /( RAND_MAX + 1.0))*w;	//t tou kathe h
-			//printf("%f\n",tfix[i]);
+			tfix[i]=(rand() /( RAND_MAX + 1.0))*w;	//Kataskevazoume to t toy kathe h
 			for(j=0;j<counter;j++)
 			{
 				ran=2;
@@ -790,10 +785,10 @@ int main(int argc, char *argv[])
 				vfix[i][j]=sqrt((-2*log10(ran))/(ran)) * y1;//to v tou kathe h
 			}
 		}
-		rfix=malloc(k*sizeof(int));// k*L isws
+		rfix=malloc(k*sizeof(int));
 		for(i=0;i<k;i++)
 		{
-			rfix[i]=1+(rand() /( RAND_MAX + 1.0))*128;
+			rfix[i]=1+(rand() /( RAND_MAX + 1.0))*128;//kataskevi r(i) gia ton upologismo tis Φ
 		}
 		if ((fp = fopen((dfile), "r")) == NULL)
 		{
@@ -811,7 +806,7 @@ int main(int argc, char *argv[])
 				{
 					if(buflen[i]>='0' && buflen[i]<='9')
 						{
-							bufint[z]=buflen[i];
+							bufint[z]=buflen[i];//pairnei to itemid ws char
 							z++;
 						}
 					i++;
@@ -821,7 +816,7 @@ int main(int argc, char *argv[])
 				{
 					fscanf(fp, "%s", buflen);
 					temp=atof(buflen);
-					vector[z]=temp;
+					vector[z]=temp;//vazei ola ta stoixeia tou item
 				}
 				for(i=0;i<L;i++)
 				{
@@ -836,10 +831,10 @@ int main(int argc, char *argv[])
 						}
 					
 						sum=(sum+tfix[gfun[i][j]])/w;
-						sum=floor(sum);
-						fsum+=rfix[j]*sum;
+						sum=floor(sum);//ypologismos h
+						fsum+=rfix[j]*sum;//athroisma twn h me ta katallila r(i) gia tin kataskevi tis Φ
 					}
-					idfind=mod(fsum,modnum);
+					idfind=mod(fsum,modnum);//to id poy prokiptei ap to mod()
 					inserteuclidian(hasht[i][mod(idfind,hashsize)].lista,vector,itemid,idfind,counter);
 				}
 				free(vector);
@@ -860,7 +855,7 @@ int main(int argc, char *argv[])
 			radius=strtol(buflen,&pitemid,10);
 			
 		
-			while (fscanf(fp, "%s", buflen) != EOF)//vazei sto length ton stoixion tou arxeiou
+			while (fscanf(fp, "%s", buflen) != EOF)//omoia diavazei gia to queryfile
 			{
 				beginlsh=clock();
 				i=0;
@@ -901,14 +896,14 @@ int main(int argc, char *argv[])
 						fsum+=rfix[j]*sum;
 					}
 					idfind=mod(fsum,modnum);
-					//printf("%f\n",radius);
 					searcheuclidian(hasht[i][mod(idfind,hashsize)].lista,vector,itemid,idfind,dilist,counter,radius,L);
 				}
 				endlsh=clock();
 				time_spentlsh=(double)(endlsh - beginlsh) / CLOCKS_PER_SEC;
 				time_spentlsh+=time_spent;
 				fprintf(fpw,"Query: item%lu\n",itemid);
-				printdistancelisteuclidian(dilist,fpw);
+				if(radius!=0)
+					printdistancelisteuclidian(dilist,fpw);
 				findmin(dilist,0,fpw);
 				freedlist(dilist);
 				free(dilist);
@@ -916,7 +911,7 @@ int main(int argc, char *argv[])
 				dilist =malloc(sizeof(struct distlist));//lista me apostaseis
 				dilist->head=NULL;
 				fsum=0;
-				for(j=0;j<k;j++)
+				for(j=0;j<k;j++)//ipologismos Φ omoia me parapanw gia to queryfile
 				{
 					sum=0;
 					for(z=0;z<counter;z++)
@@ -933,7 +928,7 @@ int main(int argc, char *argv[])
 				for(i=0;i<hashsize;i++)
 				{
 					if(hasht[0][i].lista->head!=NULL)
-						searcheuclidian(hasht[0][i].lista,vector,itemid,idfind,dilist,counter,0,-1);
+						searcheuclidian(hasht[0][i].lista,vector,itemid,idfind,dilist,counter,0,-1);//radius 0 kai L=-1 gia brute
 				}
 				endbr=clock();	
 				time_spentbr=(double)(endbr - beginbr) / CLOCKS_PER_SEC;	
@@ -962,7 +957,7 @@ int main(int argc, char *argv[])
 		free(tfix);
 		free(rfix);
 		freehasht(hasht,L,hashsize);
-		free(hasht);
+		free(hasht);//apodeusmeusei mnimis
 
 	}
 	else if(check==3)
@@ -981,17 +976,15 @@ int main(int argc, char *argv[])
 		fscanf(fp, "%s", baflen);
 		fscanf(fp, "%s", baflen);
 		fscanf(fp, "%s", baflen);
-		tok = strtok (baflen,s);
-		//printf ("%s\n",tok);
-		while (tok != NULL)
+		tok = strtok (baflen,s);//diavazei to string me ola ta item
+		while (tok != NULL)//ta ksexwrizei kai ta metraei me tin strtok
 		{
-			//printf ("%s\n",tok);
 			tok = strtok (NULL, s);
 			counter++;
   		}
 		fclose(fp);	
 		matrix=malloc(counter*sizeof(double*));
-		for(i=0;i<counter;i++)
+		for(i=0;i<counter;i++)//desmevei pinaka typou double gia na perasei ta stoixeia tou arxeiou
 		{
 			matrix[i]=malloc(counter*sizeof(double));		
 		}
@@ -1009,10 +1002,10 @@ int main(int argc, char *argv[])
 		j=0;
 		while(fscanf(fp, "%s", baflen)!=EOF)
 		{
-			matrix[i][j]=atof(baflen);
+			matrix[i][j]=atof(baflen);//diavazei ta stoixeia tou kathe item
 			readcount++;
 			j++;
-			if(readcount==counter)
+			if(readcount==counter)//epeidi einai ola se mia seira, diavazei mexri ton arithmo twn stoixeion
 			{
 				readcount=0;
 				i++;
@@ -1031,14 +1024,14 @@ int main(int argc, char *argv[])
 			gfun[i]=malloc(k*sizeof(int));
 			for(j=0;j<k;j++)
 			{
-				gfun[i][j]=(rand() /( RAND_MAX + 1.0))*(L*k);
+				gfun[i][j]=(rand() /( RAND_MAX + 1.0))*(L*k);//tuxaia h(i)
 			}
 		}
 		for(i=0;i<k*L;i++)
 		{
-				hmat[i][0]=1+(rand() /( RAND_MAX + 1.0))*(counter);
-				hmat[i][1]=1+(rand() /( RAND_MAX + 1.0))*(counter);
-				while(hmat[i][0]==hmat[i][1])
+				hmat[i][0]=1+(rand() /( RAND_MAX + 1.0))*(counter);//tuxaia items
+				hmat[i][1]=1+(rand() /( RAND_MAX + 1.0))*(counter);//tuxaia items
+				while(hmat[i][0]==hmat[i][1])//an einai idia,ksanakanei random se mia ap tis duo
 				{
 					hmat[i][1]=1+(rand() /( RAND_MAX + 1.0))*(counter);
 				}
@@ -1054,13 +1047,13 @@ int main(int argc, char *argv[])
 				summid[i][j]+=matrix[j][hmat[i][0]]*matrix[j][hmat[i][0]];
 				summid[i][j]+=matrix[j][hmat[i][1]]*matrix[j][hmat[i][1]];
 				summid[i][j]-=matrix[hmat[i][0]][hmat[i][1]]*matrix[hmat[i][0]][hmat[i][1]];
-				summid[i][j]=summid[i][j]/(2*matrix[hmat[i][0]][hmat[i][1]]);
+				summid[i][j]=summid[i][j]/(2*matrix[hmat[i][0]][hmat[i][1]]);//sum gia to kathe item
 			}
 		}
 		for(i=0;i<k*L;i++)
 		{
-			bubble_sort(summid[i],counter);
-			tmat[i]=summid[i][counter/2];
+			bubble_sort(summid[i],counter);//taksinomisi pinaka me bubble sort
+			tmat[i]=summid[i][counter/2];//pernaei to meson tou pinaka
 		}
 
 		for(z=0;z<L;z++)
@@ -1096,7 +1089,7 @@ int main(int argc, char *argv[])
 			}
 			columns=-1;
 			beginlsh=clock();
-	 		while (fgets(baflen, sizeof(baflen), fp) != NULL)
+	 		while (fgets(baflen, sizeof(baflen), fp) != NULL)//omoia me parapanw diavazei to queryfile
 				columns++;
 			fclose(fp);
 			matrid=malloc(columns*sizeof(long));
@@ -1136,10 +1129,8 @@ int main(int argc, char *argv[])
 					fscanf(fp, "%s", baflen);
 					temp=strtod(baflen,&token);
 					querymatr[readcount][i]=temp;
-					//printf("%f\n",temp);	
 				}
 				readcount++;
-				//printf("%d readcount\n",readcount);
 			}		
 			for(j=0;j<columns;j++)
 			{
@@ -1168,7 +1159,8 @@ int main(int argc, char *argv[])
 				time_spentlsh=(double)(endlsh - beginlsh) / CLOCKS_PER_SEC;
 				time_spentlsh+=time_spent;
 				fprintf(fpw,"Query: item%lu\n",matrid[j]);
-				printdistancelisteuclidian(dilist,fpw);
+				if(radius!=0)
+					printdistancelisteuclidian(dilist,fpw);
 				findmin(dilist,0,fpw);
 				free(dilist);
 				beginbr=clock();
@@ -1197,7 +1189,6 @@ int main(int argc, char *argv[])
 			scanf("%s",newfilename);
 			qfile=newfilename;
 		}while((strcmp(qfile,"END")!=0));
-		fclose(fp);	
 		freefix(querymatr ,columns,1);
 		free(querymatr);
 		free(matrid);
@@ -1213,5 +1204,5 @@ int main(int argc, char *argv[])
 		freehasht(hasht,L,hashsize);
 		free(hasht);
 	}
-	fclose(fpw);
+	fclose(fpw);//kleinei to output arxeio,termatismos programmatos
 }
