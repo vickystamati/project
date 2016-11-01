@@ -9,7 +9,7 @@ void search(struct list *lista,unsigned long long find,unsigned long idfind,stru
 {
 	struct distnode * new;
 	char * chbin,* incur;//binary ws simvoloseira
-	chbin=malloc(length+1);
+	chbin=malloc((length+1)*sizeof(char));
 	turnintobinary(find,length,chbin);
 	int i,loop=0;
 	double d;
@@ -47,10 +47,12 @@ void search(struct list *lista,unsigned long long find,unsigned long idfind,stru
 			current = current->next;
 			free(incur);
 		}
-		free(chbin);
+		
 		//printf("THA MPEI STO DILIST1: item%lu with id :%llu  d=%f\n",new->nearid,new->nearkey,new->distance);
 		if(new->distance!=length+1)
 			insertnear(dilist,new);
+		else
+			free(new);
 	}
 	else
 	{
@@ -86,12 +88,12 @@ void search(struct list *lista,unsigned long long find,unsigned long idfind,stru
 			}
 			current = current->next;
 			free(incur);
-		}
-		free(chbin);		
+		}		
 	}	
+	free(chbin);
 }
 
-double findmin(struct distlist * dilist)
+void findmin(struct distlist * dilist,int flag,FILE* fpw)
 {
 	struct distnode *new=malloc(sizeof(struct distnode));
 	struct distnode *current = dilist->head;
@@ -110,45 +112,37 @@ double findmin(struct distlist * dilist)
 			}
 			current = current->next;
 		}
-		return new->distance;
-		//printf("distanceTrue: %f\n",new->distance);
-		free(new);
+		if(flag==0)
+		{
+			fprintf(fpw, "Nearest neighbor: item%lu\n",new->nearid);
+			fprintf(fpw, "distanceLSH: %f\n",new->distance);
+		}
+		else
+			fprintf(fpw, "distanceTrue: %f\n",new->distance);
 	}
 	else
-		printf("Empty list at findmin\n");
+		fprintf(fpw, "Empty list at findmin\n");
+	free(new);
 }
 
-void printlist(struct list * lista)
-{
-	struct node* temp;
-	temp = lista->head;
-	if(lista->head==NULL)
-	{
-		printf("Empty List\n");
-	}
-	while(temp!=NULL)
-	{
-		temp = temp->next;
-	}
-}
-
-void printdistancelist(struct distlist * lista,int length)
+void printdistancelist(struct distlist * lista,int length,FILE * fpw)
 {
 	struct distnode* temp;
 	char *token;
 	temp = lista->head;
 	if(temp==NULL)
 	{
-		printf("Empty List\n");
+		fprintf(fpw, "Empty List\n");
 	}
 	else
-	{	printf("R-near neighbors: \n");
+	{	
+		fprintf(fpw, "R-near neighbors: \n");
 		while(temp!=NULL)
 		{
 			
 			token=malloc(length+1);
 			turnintobinary(temp->nearkey,length,token);
-			printf("item%lu\n",temp->nearid);
+			fprintf(fpw, "item%lu\n",temp->nearid);
 			free(token);
 			temp = temp->next;
 		}
@@ -159,25 +153,44 @@ void printdistancelist(struct distlist * lista,int length)
 
 void insertnear(struct distlist * dlist,struct distnode * new)
 {
-	
+	int flag=0;
 	if (dlist->head == NULL)
 	{
-		dlist->head = malloc(sizeof(struct distnode));
+		//printf("paw na valw head to id %lu\n",new->nearid);
+		//dlist->head = malloc(sizeof(struct distnode));
 		dlist->head=new;
 		dlist->head->next=NULL;	
-		//printf("mpika head minimm einai: %lu %f\n",dlist->head->nearid,dlist->head->distance);		
+
 	}
 	else
 	{
+		//printf("paw na valw to id %lu\n",new->nearid);
 		struct distnode *current = dlist->head;
+		//printf("tha paw na sigjrinw2 currnet %lu kai new %lu\n",current->nearid,new->nearid);
+		if(new->nearid==current->nearid)
+		{
+			//printf("sigrina1 currnet %lu kai new %lu\n",current->nearid,new->nearid);
+			flag=1;
+		}
 		while (current->next != NULL) 
 		{
+			//printf("tha paw na sigjrinw currnet %lu kai new %lu\n",current->next->nearid,new->nearid);
+			if(new->nearid==current->next->nearid)
+			{
+				//printf("sigrina2 currnet %lu kai new %lu\n",current->nearid,new->nearid);
+				flag=1;
+				break;
+			}
 			current = current->next;
 		}
-		//current->next = malloc(sizeof(struct distnode));
-		current->next = new;
-		current->next->next=NULL;
-		//printf("mpika body minimm einai: %lu %f\n",current->nearid,current->distance);		
+		if(flag==0)
+		{
+			//current->next = malloc(sizeof(struct distnode));
+			//printf("kanw insert to id %lu\n",new->nearid);
+			current->next = new;
+			current->next->next=NULL;
+
+		}	
 	}
 }
 
@@ -194,7 +207,7 @@ void insert(struct list * lista,unsigned long long binary,unsigned long itemid)
 	new -> next = NULL;
 	if (lista->head == NULL)
 	{
-		lista->head = malloc(sizeof(struct node));
+		//lista->head = malloc(sizeof(struct node));
 		lista->head=new;
 		lista->head->next=NULL;	
 	}
@@ -247,7 +260,7 @@ void insertcosine(struct list *lista,double * vector,unsigned long itemid,int co
 	new -> next = NULL;
 	if (lista->head == NULL)
 	{
-		lista->head = malloc(sizeof(struct node));
+		//lista->head = malloc(sizeof(struct node));
 		lista->head=new;
 		lista->head->next=NULL;	
 	}
@@ -303,6 +316,8 @@ void searchcosine(struct list *lista,double* find,unsigned long idfind,struct di
 		}
 		if(new->distance!=counter+1)
 			insertnear(dilist,new);
+		else
+			free(new);
 	}
 	else
 	{
@@ -343,19 +358,20 @@ void searchcosine(struct list *lista,double* find,unsigned long idfind,struct di
 		}		
 	}
 }
-void printdistancelistcosine(struct distlist * lista)
+void printdistancelistcosine(struct distlist * lista, FILE * fpw)
 {
 	struct distnode* temp;
 	temp = lista->head;
 	if(temp==NULL)
 	{
-		printf("Empty List\n");
+		fprintf(fpw, "Empty List\n");
 	}
 	else
 	{
+		fprintf(fpw, "R-near neighbors: \n");
 		while(temp!=NULL)
 		{
-			printf("item %lu minD= %f\n",temp->nearid,temp->distance);
+			fprintf(fpw, "item%lu\n",temp->nearid);
 			temp = temp->next;
 		}
 	}
@@ -380,7 +396,7 @@ void inserteuclidian(struct list * lista,double *vector, long itemid,long id,int
 	new -> next = NULL;
 	if (lista->head == NULL)
 	{
-		lista->head = malloc(sizeof(struct node));
+		//lista->head = malloc(sizeof(struct node));
 		lista->head=new;
 		lista->head->next=NULL;	
 	}
@@ -408,7 +424,7 @@ void searcheuclidian(struct list *lista,double* find,long id,long idfind,struct 
 		if(radius==0)
 		{	
 			new = malloc(sizeof(struct distnode));
-			new->distance=100000000;//paradoxi
+			new->distance=10000000000;//paradoxi
 			new->next=NULL;
 			while (current!= NULL && loop!=3*L) //isws thelei current->next
 			{
@@ -442,9 +458,10 @@ void searcheuclidian(struct list *lista,double* find,long id,long idfind,struct 
 				}
 				current = current->next;
 			}
-			if(new->distance!=100000000)
+			if(new->distance!=10000000000)
 				insertnear(dilist,new);
-			//printf("minimum apostasi %f\n",d);
+			else
+				free(new);
 		}
 		else
 		{
@@ -479,19 +496,20 @@ void searcheuclidian(struct list *lista,double* find,long id,long idfind,struct 
 		}
 	}
 }
-void printdistancelisteuclidian(struct distlist * lista)
+void printdistancelisteuclidian(struct distlist * lista,FILE * fpw)
 {
 	struct distnode* temp;
 	temp = lista->head;
 	if(temp==NULL)
 	{
-		printf("Empty List\n");
+		fprintf(fpw, "Empty List\n");
 	}
 	else
 	{
+		fprintf(fpw, "R-near neighbors: \n");
 		while(temp!=NULL)
 		{
-			printf("item%lu\n",temp->nearid);
+			fprintf(fpw, "item%lu\n",temp->nearid);
 			temp = temp->next;
 		}
 	}
@@ -499,7 +517,6 @@ void printdistancelisteuclidian(struct distlist * lista)
 void searchmatrix(struct list*lista,double ** find,long itemid,struct  distlist * dilist, int counter,double radius,int L)
 {
 	struct distnode * new;
-	int i;
 	double d;
 	int loop=0;
 	struct node *current = lista->head;
@@ -527,6 +544,8 @@ void searchmatrix(struct list*lista,double ** find,long itemid,struct  distlist 
 		}
 		if(new->distance!=counter+1)
 			insertnear(dilist,new);
+		else 
+			free(new);
 	}
 	else
 	{
@@ -554,3 +573,27 @@ void searchmatrix(struct list*lista,double ** find,long itemid,struct  distlist 
 		}		
 	}
 }
+void freehlist(struct list* lista)
+{
+	struct node* temp;
+	while (lista->head != NULL)
+	{
+		temp = lista->head;
+		lista->head = lista->head->next;
+		if(temp->key1!=NULL)
+			free(temp->key1);
+		free(temp);
+	}
+}
+void freedlist(struct distlist* lista)
+{
+	struct distnode* temp;
+	while (lista->head != NULL)
+	{
+		temp = lista->head;
+		lista->head = lista->head->next;
+		free(temp);
+	}
+}
+
+

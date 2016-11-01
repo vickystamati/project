@@ -1,0 +1,513 @@
+Matrix
+Query: item1
+R-near neighbors: 
+item690
+item683
+item658
+item696
+Nearest neighbor: item683
+distanceLSH: 7.000000
+distanceTrue: 7.000000
+tLSH: 7.056965
+tTrue: 6.845126
+
+Query: item2
+R-near neighbors: 
+item824
+item827
+item836
+item838
+item848
+item803
+item805
+item809
+item816
+item822
+item826
+item839
+item841
+item846
+item801
+item817
+item819
+item833
+item837
+item842
+item847
+Nearest neighbor: item816
+distanceLSH: 2.000000
+distanceTrue: 2.000000
+tLSH: 7.095366
+tTrue: 6.843025
+
+Query: item3
+R-near neighbors: 
+item310
+item337
+item344
+item347
+item349
+item322
+Nearest neighbor: item344
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.101327
+tTrue: 6.842929
+
+Query: item4
+R-near neighbors: 
+item758
+item767
+item775
+item780
+item793
+item764
+item787
+Nearest neighbor: item758
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.101901
+tTrue: 6.843103
+
+Query: item5
+R-near neighbors: 
+item868
+item866
+item875
+item853
+item854
+item856
+item858
+item861
+item869
+item870
+item871
+item876
+item877
+item878
+item883
+item887
+item889
+item893
+item898
+Nearest neighbor: item870
+distanceLSH: 5.000000
+distanceTrue: 5.000000
+tLSH: 7.104520
+tTrue: 6.842911
+
+Query: item6
+R-near neighbors: 
+item397
+Nearest neighbor: item397
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.105283
+tTrue: 6.843015
+
+Query: item7
+R-near neighbors: 
+item305
+item310
+item331
+item337
+item344
+item349
+item301
+item322
+item311
+item325
+Nearest neighbor: item344
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.106292
+tTrue: 6.843651
+
+Query: item8
+R-near neighbors: 
+item504
+item521
+item523
+item524
+item544
+item525
+item542
+Nearest neighbor: item524
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.108111
+tTrue: 6.843011
+
+Query: item9
+R-near neighbors: 
+item712
+item714
+item717
+item723
+item735
+item736
+item738
+item745
+Nearest neighbor: item717
+distanceLSH: 7.000000
+distanceTrue: 7.000000
+tLSH: 7.109721
+tTrue: 6.843223
+
+Query: item10
+Empty List
+Empty list at findmin
+distanceTrue: 10.000000
+tLSH: 7.111137
+tTrue: 6.843016
+
+Query: item11
+Empty List
+Empty list at findmin
+distanceTrue: 9.000000
+tLSH: 7.120004
+tTrue: 6.843252
+
+Query: item12
+R-near neighbors: 
+item892
+item857
+item867
+item869
+item870
+item871
+item866
+item882
+item898
+Nearest neighbor: item867
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.121433
+tTrue: 6.843223
+
+Query: item13
+R-near neighbors: 
+item801
+item803
+item805
+item806
+item812
+item816
+item817
+item819
+item822
+item826
+item829
+item833
+item835
+item837
+item839
+item841
+item842
+item846
+item850
+item824
+item831
+item836
+item848
+item832
+item838
+Nearest neighbor: item816
+distanceLSH: 4.000000
+distanceTrue: 4.000000
+tLSH: 7.122646
+tTrue: 6.842930
+
+Query: item14
+R-near neighbors: 
+item353
+item368
+item371
+item390
+item393
+item396
+item360
+item397
+item373
+Nearest neighbor: item360
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.123477
+tTrue: 6.843004
+
+Query: item15
+R-near neighbors: 
+item260
+item268
+item289
+item292
+item278
+Nearest neighbor: item268
+distanceLSH: 7.000000
+distanceTrue: 7.000000
+tLSH: 7.124278
+tTrue: 6.842901
+
+Query: item16
+R-near neighbors: 
+item153
+item154
+item155
+item156
+item159
+item160
+item161
+item162
+item163
+item164
+item165
+item169
+item170
+item173
+item174
+item175
+item180
+item181
+item182
+item183
+item184
+item187
+item188
+item191
+item194
+item195
+item198
+item200
+item152
+item177
+item189
+item190
+item199
+Nearest neighbor: item183
+distanceLSH: 2.000000
+distanceTrue: 2.000000
+tLSH: 7.125347
+tTrue: 6.842926
+
+Query: item17
+R-near neighbors: 
+item408
+item418
+item425
+item427
+item428
+item431
+item433
+item435
+item439
+item444
+item446
+Nearest neighbor: item408
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.126034
+tTrue: 6.842914
+
+Query: item18
+R-near neighbors: 
+item601
+item603
+item607
+item608
+item610
+item611
+item612
+item614
+item616
+item617
+item618
+item619
+item620
+item621
+item622
+item623
+item624
+item625
+item627
+item628
+item630
+item631
+item632
+item633
+item635
+item637
+item640
+item641
+item642
+item644
+item645
+item647
+item648
+item613
+item626
+item650
+Nearest neighbor: item633
+distanceLSH: 3.000000
+distanceTrue: 3.000000
+tLSH: 7.126867
+tTrue: 6.842915
+
+Query: item19
+R-near neighbors: 
+item912
+Nearest neighbor: item912
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.127372
+tTrue: 6.842905
+
+Query: item20
+R-near neighbors: 
+item401
+item418
+item435
+Nearest neighbor: item418
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.129368
+tTrue: 6.842899
+
+Query: item21
+R-near neighbors: 
+item397
+Nearest neighbor: item397
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.129727
+tTrue: 6.842931
+
+Query: item22
+R-near neighbors: 
+item179
+item180
+item183
+item194
+Nearest neighbor: item183
+distanceLSH: 6.000000
+distanceTrue: 6.000000
+tLSH: 7.130196
+tTrue: 6.842923
+
+Query: item23
+R-near neighbors: 
+item103
+item104
+item105
+item109
+item110
+item113
+item115
+item116
+item119
+item123
+item124
+item133
+item134
+item135
+item143
+item148
+item150
+item102
+item112
+item114
+item122
+item127
+item129
+item130
+item142
+item144
+item145
+item138
+Nearest neighbor: item104
+distanceLSH: 3.000000
+distanceTrue: 3.000000
+tLSH: 7.130811
+tTrue: 6.842897
+
+Query: item24
+R-near neighbors: 
+item103
+item104
+item105
+item124
+item126
+item133
+item137
+item147
+item102
+item112
+item114
+item122
+item130
+item144
+Nearest neighbor: item130
+distanceLSH: 4.000000
+distanceTrue: 4.000000
+tLSH: 7.131321
+tTrue: 6.842898
+
+Query: item25
+Empty List
+Empty list at findmin
+distanceTrue: 9.000000
+tLSH: 7.131760
+tTrue: 6.842925
+
+Query: item26
+R-near neighbors: 
+item752
+item793
+item756
+item761
+item767
+item771
+item781
+item782
+item758
+item777
+item783
+item787
+item768
+Nearest neighbor: item793
+distanceLSH: 5.000000
+distanceTrue: 5.000000
+tLSH: 7.132175
+tTrue: 6.842919
+
+Query: item27
+R-near neighbors: 
+item558
+Nearest neighbor: item558
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.132621
+tTrue: 6.842898
+
+Query: item28
+Empty List
+Empty list at findmin
+distanceTrue: 10.000000
+tLSH: 7.133103
+tTrue: 6.843032
+
+Query: item29
+R-near neighbors: 
+item220
+Nearest neighbor: item220
+distanceLSH: 8.000000
+distanceTrue: 8.000000
+tLSH: 7.133724
+tTrue: 6.843101
+
+Query: item30
+Empty List
+Empty list at findmin
+distanceTrue: 9.000000
+tLSH: 7.134510
+tTrue: 6.842943
+
